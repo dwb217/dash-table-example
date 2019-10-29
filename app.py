@@ -21,12 +21,25 @@ githublink = 'https://github.com/austinlasseter/dash-table-example'
 
 ########### Set up the data
 df = pd.read_csv(filename)
+avg_rating=df['Ratings (Averag)']
+beer_name=df['beer name']
+
+
+##### charts
+
+avg_rating = go.Bar(
+    x = 'beer_name'
+    y = 'avg_rating'
+)
+
 
 ########### Initiate the app
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 server = app.server
 app.title=tabtitle
+
+
 
 ########### Set up the layout
 app.layout = html.Div(children=[
@@ -38,7 +51,10 @@ app.layout = html.Div(children=[
         columns=[{"name": i, "id": i} for i in df.columns],
         data=df.to_dict('records'),
     ),
-
+    dcc.Graph(
+        id = 'beer_compare',
+        figure = beer_fig
+    ),
     html.A('Code on Github', href=githublink),
     html.Br(),
     html.A("Data Source", href=sourceurl),
