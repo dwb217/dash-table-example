@@ -28,7 +28,7 @@ beer_name=df['beer name']
 ##### charts
 
 avg_rating = go.Bar(
-    x = beer_name
+    x = beer_name,
     y = avg_rating
 )
 
